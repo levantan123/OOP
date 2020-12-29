@@ -12,7 +12,7 @@ $listMemberFullTime = array(
         'start_work_time' => '08:00:00',
         'work_hour' => 8,
         'has_lunch_break' => 1,
-        'luong' => ''
+
     ),
     array(
         'code' => '002',
@@ -26,7 +26,7 @@ $listMemberFullTime = array(
         'start_work_time' => '08:30:00',
         'work_hour' => 8,
         'has_lunch_break' => 1,
-        'luong' => ''
+
     ),
     array(
         'code' => '003',
@@ -40,7 +40,6 @@ $listMemberFullTime = array(
         'start_work_time' => '09:00:00',
         'work_hour' => 8,
         'has_lunch_break' => 1,
-        'luong' => ''
     )
 );
 
@@ -58,7 +57,7 @@ $listMemberPartTime = array(
         'start_work_time' => '09:00:00',
         'work_hour' => 4,
         'has_lunch_break' => 0,
-        'luong' => ''
+
     ),
     array(
         'code' => '005',
@@ -72,7 +71,7 @@ $listMemberPartTime = array(
         'start_work_time' => '08:30:00',
         'work_hour' => 3,
         'has_lunch_break' => 0,
-        'luong' => ''
+
     ),
 
 );
@@ -83,210 +82,184 @@ $listWorkTime = array(
         'member_code' => '001',
         'start_datetime' => '2019-04-01 08:00:00',
         'end_datetime' => '2019-04-01 19:00:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '001',
         'start_datetime' => '2019-04-02 08:10:00',
         'end_datetime' => '2019-04-02 17:00:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '001',
         'start_datetime' => '2019-04-03 08:50:00',
         'end_datetime' => '2019-04-03 18:00:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '001',
         'start_datetime' => '2019-04-04 08:20:00',
         'end_datetime' => '2019-04-04 18:20:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '001',
         'start_datetime' => '2019-04-05 09:02:00',
         'end_datetime' => '2019-04-05 17:40:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '001',
         'start_datetime' => '2019-04-06 08:20:00',
         'end_datetime' => '2019-04-06 18:30:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '002',
         'start_datetime' => '2019-04-01 08:00:00',
         'end_datetime' => '2019-04-01 19:00:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '002',
         'start_datetime' => '2019-04-02 08:10:00',
         'end_datetime' => '2019-04-02 17:00:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '002',
         'start_datetime' => '2019-04-03 08:50:00',
         'end_datetime' => '2019-04-03 18:00:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '002',
         'start_datetime' => '2019-04-04 08:20:00',
         'end_datetime' => '2019-04-04 18:20:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '002',
         'start_datetime' => '2019-04-05 09:02:00',
         'end_datetime' => '2019-04-05 17:40:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '002',
         'start_datetime' => '2019-04-06 08:20:00',
         'end_datetime' => '2019-04-06 18:30:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
 
     array(
         'member_code' => '003',
         'start_datetime' => '2019-04-01 08:00:00',
         'end_datetime' => '2019-04-01 19:00:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '003',
         'start_datetime' => '2019-04-02 08:10:00',
         'end_datetime' => '2019-04-02 17:00:00',
-        'cong' => ''
+
     ),
     array(
         'member_code' => '003',
         'start_datetime' => '2019-04-03 08:50:00',
         'end_datetime' => '2019-04-03 18:00:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '003',
         'start_datetime' => '2019-04-04 08:20:00',
         'end_datetime' => '2019-04-04 18:20:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '003',
         'start_datetime' => '2019-04-05 09:02:00',
         'end_datetime' => '2019-04-05 17:40:00',
-        'cong' => ''
+
     ),
     array(
         'member_code' => '003',
         'start_datetime' => '2019-04-06 08:20:00',
         'end_datetime' => '2019-04-06 18:30:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
 
     array(
         'member_code' => '004',
         'start_datetime' => '2019-04-01 08:00:00',
         'end_datetime' => '2019-04-01 12:00:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '004',
         'start_datetime' => '2019-04-02 08:10:00',
         'end_datetime' => '2019-04-02 11:30:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '004',
         'start_datetime' => '2019-04-03 08:50:00',
         'end_datetime' => '2019-04-03 11:40:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '004',
         'start_datetime' => '2019-04-04 08:20:00',
         'end_datetime' => '2019-04-04 12:10:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '004',
         'start_datetime' => '2019-04-05 09:02:00',
         'end_datetime' => '2019-04-05 11:45:00',
-        'cong' => ''
+
     ),
     array(
         'member_code' => '004',
         'start_datetime' => '2019-04-06 08:20:00',
         'end_datetime' => '2019-04-06 12:30:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
 
     array(
         'member_code' => '005',
         'start_datetime' => '2019-04-01 08:00:00',
         'end_datetime' => '2019-04-01 12:00:00',
-        'cong' => ''
+
     ),
     array(
         'member_code' => '005',
         'start_datetime' => '2019-04-02 08:10:00',
         'end_datetime' => '2019-04-02 11:30:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '005',
         'start_datetime' => '2019-04-03 08:50:00',
         'end_datetime' => '2019-04-03 11:40:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '005',
         'start_datetime' => '2019-04-04 08:20:00',
         'end_datetime' => '2019-04-04 12:10:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '005',
         'start_datetime' => '2019-04-05 09:02:00',
         'end_datetime' => '2019-04-05 11:45:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
     array(
         'member_code' => '005',
         'start_datetime' => '2019-04-06 08:20:00',
         'end_datetime' => '2019-04-06 12:30:00',
-        'cong' => '',
-        'chamcong' => ''
+
     ),
 
 );
