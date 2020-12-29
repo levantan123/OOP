@@ -148,12 +148,11 @@ class manager
 
 class Timekeeping
 {
-    public function getHour($arrlistWorkTime, $arrStar_datetime, $arrEnd_datetime, $arr)
+    public function getHour($arrlistWorkTime, $arrStar_datetime, $arrEnd_datetime, $arr,$lenght,$lenght_arrlistWorkTime)
     {
         $array = [];
-        $lenght = count($arrlistWorkTime);
-        for ($j = 0; $j < count($arr); $j++) {
-            for ($i = 0; $i < $lenght; $i++) {
+        for ($j = 0; $j < $lenght; $j++) {
+            for ($i = 0; $i < $lenght_arrlistWorkTime; $i++) {
                 if ($arr[$j]['code'] !== $arrlistWorkTime[$i]['member_code']) continue;
                 $sum = $arrEnd_datetime[$i] - $arrStar_datetime[$i];
                 if ($arr[$j]['has_lunch_break'] === 1) $sum = $sum - 1.5;
@@ -164,14 +163,13 @@ class Timekeeping
         return $array;
     }
 
-    public function calculate($arrlistWorkTime, $arr, $getHour, $arrStar_datetime)
+    public function calculate($arrlistWorkTime, $arr, $getHour, $arrStar_datetime,$lenght,$lenght_arrlistWorkTime)
     {
-        $lenght = count($arr);
         for ($i = 0; $i < $lenght; $i++) {
             $h = explode(':', $arr[$i]['start_work_time']);
             $h = ($h[0]) + ($h[1] / 60) + ($h[2] / 3600);
             $arr[$i]['start_work_time'] = $h;
-            for ($j = 0; $j < count($arrlistWorkTime); $j++) {
+            for ($j = 0; $j < $lenght_arrlistWorkTime; $j++) {
                 if ($arr[$i]['code'] !== $arrlistWorkTime[$j]['member_code']) continue;
                 $arrlistWorkTime[$j]['work_time'] = $getHour[$j];
                 if ($arrStar_datetime[$j] > $arr[$i]['start_work_time']) {
@@ -196,11 +194,10 @@ class Timekeeping
         return $arrlistWorkTime;
     }
 
-    public function sum($inputNumber, $getDay, $arrlistWork_Cal, $arr)
+    public function sum($inputNumber, $getDay, $arrlistWork_Cal, $arr,$lenght,$lenght_arrlistWork_Cal)
     {
-        $lenght = count($arr);
         for ($i = 0; $i < $lenght; $i++) {
-            for ($j = 0; $j < count($arrlistWork_Cal); $j++) {
+            for ($j = 0; $j < $lenght_arrlistWork_Cal; $j++) {
                 if ($arr[$i]['code'] !== $arrlistWork_Cal[$j]['member_code']) continue;
                 if ($arrlistWork_Cal[$j]['member_code'] !== $inputNumber) continue;
                 $arr[$i]['workdays'] += $arrlistWork_Cal[$j]['chamcong'];
@@ -216,15 +213,18 @@ $manager = new manager;
 $time = new Timekeeping;
 $arr = array_merge($listMemberFullTime, $listMemberPartTime);
 $arrlistWorkTime = $listWorkTime;
+$lenght_arrlistWorkTime = count($arrlistWorkTime);
+$lenght = count($arr);
 $arrStar_datetime = $manager->start_datetime($arrlistWorkTime);
 $arrEnd_datetime = $manager->end_datetime($arrlistWorkTime);
 $y = substr($arrlistWorkTime[0]['start_datetime'], 0, 4);
 $m = substr($arrlistWorkTime[0]['start_datetime'], 5, 2);
 $getDay = $manager->getDay($m, $y);
-$getHour = $time->getHour($arrlistWorkTime, $arrStar_datetime, $arrEnd_datetime, $arr);
-$arrlistWork_Cal = $time->calculate($arrlistWorkTime, $arr, $getHour, $arrStar_datetime);
+$getHour = $time->getHour($arrlistWorkTime, $arrStar_datetime, $arrEnd_datetime, $arr,$lenght,$lenght_arrlistWorkTime);
+$arrlistWork_Cal = $time->calculate($arrlistWorkTime, $arr, $getHour, $arrStar_datetime,$lenght,$lenght_arrlistWorkTime);
+$lenght_arrlistWork_Cal = count($arrlistWork_Cal);
 echo '<pre>';
-print_r($time->calculate($arrlistWorkTime, $arr, $getHour, $arrStar_datetime));
+print_r($time->calculate($arrlistWorkTime, $arr, $getHour, $arrStar_datetime,$lenght,$lenght_arrlistWorkTime));
 //print_r($time->sum($inputNumber, $getDay, $arrlistWork_Cal, $arr));
 echo '</pre>';
 ?>
@@ -235,7 +235,7 @@ echo '</pre>';
     <?php
     if (isset($_POST['submit'])) {
         $inputNumber = $_POST['inputNumber'];
-        $arrs = $time->sum($inputNumber, $getDay, $arrlistWork_Cal, $arr);
+        $arrs = $time->sum($inputNumber, $getDay, $arrlistWork_Cal, $arr,$lenght,$lenght_arrlistWork_Cal);
         foreach ($arrs as $arr)
             if ($arr['code'] === $inputNumber) {
                 $manager->setName($arr['full_name']);
@@ -246,24 +246,24 @@ echo '</pre>';
                 $manager->setWorkdays($arr['workdays']);
                 $manager->setStart_work_time($arr['start_work_time']);
                 $manager->setMarital_status($arr['marital_status']);
-                echo '<br>' . "Mã: " . $manager->getCode() . '<br>';
-                echo "Họ tên: " . $manager->getName() . '<br>';
-                echo "Tuổi: " . $manager->getAge() . '<br>';
+                echo '<br>' . 'Mã: ' . $manager->getCode() . '<br>';
+                echo 'Họ tên: ' . $manager->getName() . '<br>';
+                echo 'Tuổi: ' . $manager->getAge() . '<br>';
                 if ($manager->getGender() === 0) {
-                    echo "Gioi tinh: Nam" . '<br>';
+                    echo 'Gioi tinh: Nam' . '<br>';
                 }
                 if ($manager->getGender() === 1) {
-                    echo "Gioi tinh: Nữ" . '<br>';
+                    echo 'Gioi tinh: Nữ' . '<br>';
                 }
                 if ($manager->getMarital_status() === 0) {
-                    echo "Tình trạng hôn nhân: Chưa kết hôn" . '<br>';
+                    echo 'Tình trạng hôn nhân: Chưa kết hôn' . '<br>';
                 }
                 if ($manager->getMarital_status() === 1) {
-                    echo "Tình trạng hôn nhân: Đã kết hôn" . '<br>';
+                    echo 'Tình trạng hôn nhân: Đã kết hôn' . '<br>';
                 }
-                echo "Thời gian đăng kí đi làm: " . $manager->getStart_work_time() . '<br>';
-                echo "Số ngày công: " . $manager->getWorkdays() . '<br>';
-                echo "Lương: " . $manager->getLuong() . '<br>';
+                echo 'Thời gian đăng kí đi làm: ' . $manager->getStart_work_time() . '<br>';
+                echo 'Số ngày công: ' . $manager->getWorkdays() . '<br>';
+                echo 'Lương: ' . $manager->getLuong() . '<br>';
             }
     }
     ?>
