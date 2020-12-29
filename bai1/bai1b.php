@@ -176,7 +176,7 @@ class Timekeeping
                 $arrlistWorkTime[$j]['work_time'] = $getHour[$j];
                 if ($arrStar_datetime[$j] > $arr[$i]['start_work_time']) {
                     $arrlistWorkTime[$j]['chamcong'] = 1 / 2;
-                    if ($arrlistWorkTime[$j]['work_time'] < 4) {
+                    if ($arrlistWorkTime[$j]['work_time'] < $arr[$i]['work_hour']/2) {
                         $arrlistWorkTime[$j]['chamcong'] = 0;
                     }
                 } else {
@@ -184,33 +184,12 @@ class Timekeeping
                         $arrlistWorkTime[$j]['chamcong'] = 1;
                     }
                     if ($arrlistWorkTime[$j]['work_time'] < $arr[$i]['work_hour']
-                        && $arrlistWorkTime[$j]['work_time'] >= 4) {
+                        && $arrlistWorkTime[$j]['work_time'] >= $arr[$i]['work_hour']/2) {
                         $arrlistWorkTime[$j]['chamcong'] = 1 / 2;
                     }
-                    if ($arrlistWorkTime[$j]['work_time'] < 4) {
+                    if ($arrlistWorkTime[$j]['work_time'] < $arr[$i]['work_hour']/2) {
                         $arrlistWorkTime[$j]['chamcong'] = 0;
                     }
-                }
-
-                if ($arr[$i]['has_lunch_break'] === 0) {
-                    if ($arrStar_datetime[$j] > $arr[$i]['start_work_time']) {
-                        $arrlistWorkTime[$j]['chamcong'] = 1 / 2;
-                        if ($arrlistWorkTime[$j]['work_time'] < 2) {
-                            $arrlistWorkTime[$j]['chamcong'] = 0;
-                        }
-                    } else {
-                        if ($arrlistWorkTime[$j]['work_time'] >= $arr[$i]['work_hour']) {
-                            $arrlistWorkTime[$j]['chamcong'] = 1;
-                        }
-                        if ($arrlistWorkTime[$j]['work_time'] < $arr[$i]['work_hour']
-                            && $arrlistWorkTime[$j]['work_time'] >= 2) {
-                            $arrlistWorkTime[$j]['chamcong'] = 1 / 2;
-                        }
-                        if ($arrlistWorkTime[$j]['work_time'] < 2) {
-                            $arrlistWorkTime[$j]['chamcong'] = 0;
-                        }
-                    }
-
                 }
             }
         }
