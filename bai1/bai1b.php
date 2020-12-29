@@ -11,6 +11,7 @@ class manager
     public $luong;
     public $workday;
     public $marital_status;
+
     public function setCode($code)
     {
         $this->code = $code;
@@ -50,6 +51,7 @@ class manager
     {
         return $this->gender;
     }
+
     public function setMarital_status($marital_status)
     {
         $this->marital_status = $marital_status;
@@ -59,6 +61,7 @@ class manager
     {
         return $this->marital_status;
     }
+
     public function setStart_work_time($start_work_time)
     {
         $this->start_work_time = $start_work_time;
@@ -68,6 +71,7 @@ class manager
     {
         return $this->start_work_time;
     }
+
     public function setWorkdays($workdays)
     {
         $this->workday = $workdays;
@@ -150,14 +154,11 @@ class Timekeeping
         $lenght = count($arrlistWorkTime);
         for ($j = 0; $j < count($arr); $j++) {
             for ($i = 0; $i < $lenght; $i++) {
-                if ($arr[$j]['code'] === $arrlistWorkTime[$i]['member_code']) {
-                    if ($arr[$j]['has_lunch_break'] !== 1) {
-                        $sum = $arrEnd_datetime[$i] - $arrStar_datetime[$i];
-                    } else {
-                        $sum = $arrEnd_datetime[$i] - $arrStar_datetime[$i] - 1.5;
-                    }
-                    array_push($array, $sum);
-                }
+                if ($arr[$j]['code'] !== $arrlistWorkTime[$i]['member_code']) continue;
+                $sum = $arrEnd_datetime[$i] - $arrStar_datetime[$i];
+                if ($arr[$j]['has_lunch_break'] === 1) $sum = $sum - 1.5;
+                array_push($array, $sum);
+
             }
         }
         return $array;
@@ -167,52 +168,50 @@ class Timekeeping
     {
         $lenght = count($arr);
         for ($i = 0; $i < $lenght; $i++) {
-            $c = explode(':', $arr[$i]['start_work_time']);
-            $c = ($c[0]) + ($c[1] / 60) + ($c[2] / 3600);
-            $arr[$i]['start_work_time'] = $c;
+            $h = explode(':', $arr[$i]['start_work_time']);
+            $h = ($h[0]) + ($h[1] / 60) + ($h[2] / 3600);
+            $arr[$i]['start_work_time'] = $h;
             for ($j = 0; $j < count($arrlistWorkTime); $j++) {
-                if ($arr[$i]['has_lunch_break'] === 1) {
-                    if ($arr[$i]['code'] === $arrlistWorkTime[$j]['member_code']) {
-                        $arrlistWorkTime[$j]['work_time'] = $getHour[$j];
-                        if ($arrStar_datetime[$j] > $arr[$i]['start_work_time']) {
-                            $arrlistWorkTime[$j]['chamcong'] = 1 / 2;
-                            if ($arrlistWorkTime[$j]['work_time'] < 4) {
-                                $arrlistWorkTime[$j]['chamcong'] = 0;
-                            }
-                        } else {
-                            if ($arrlistWorkTime[$j]['work_time'] >= $arr[$i]['work_hour']) {
-                                $arrlistWorkTime[$j]['chamcong'] = 1;
-                            } else if ($arrlistWorkTime[$j]['work_time'] < $arr[$i]['work_hour'] && $arrlistWorkTime[$j]['work_time'] >= 4) {
-                                $arrlistWorkTime[$j]['chamcong'] = 1 / 2;
-                            } else if ($arrlistWorkTime[$j]['work_time'] < 4) {
-                                $arrlistWorkTime[$j]['chamcong'] = 0;
-                            }
-                        }
-
+                if ($arr[$i]['code'] !== $arrlistWorkTime[$j]['member_code']) continue;
+                $arrlistWorkTime[$j]['work_time'] = $getHour[$j];
+                if ($arrStar_datetime[$j] > $arr[$i]['start_work_time']) {
+                    $arrlistWorkTime[$j]['chamcong'] = 1 / 2;
+                    if ($arrlistWorkTime[$j]['work_time'] < 4) {
+                        $arrlistWorkTime[$j]['chamcong'] = 0;
+                    }
+                } else {
+                    if ($arrlistWorkTime[$j]['work_time'] >= $arr[$i]['work_hour']) {
+                        $arrlistWorkTime[$j]['chamcong'] = 1;
+                    }
+                    if ($arrlistWorkTime[$j]['work_time'] < $arr[$i]['work_hour']
+                        && $arrlistWorkTime[$j]['work_time'] >= 4) {
+                        $arrlistWorkTime[$j]['chamcong'] = 1 / 2;
+                    }
+                    if ($arrlistWorkTime[$j]['work_time'] < 4) {
+                        $arrlistWorkTime[$j]['chamcong'] = 0;
                     }
                 }
 
                 if ($arr[$i]['has_lunch_break'] === 0) {
-                    if ($arr[$i]['code'] === $arrlistWorkTime[$j]['member_code']) {
-                        $arrlistWorkTime[$j]['work_time'] = $getHour[$j];
-                        if ($arrStar_datetime[$j] > $arr[$i]['start_work_time']) {
-                            $arrlistWorkTime[$j]['chamcong'] = 1 / 2;
-                            if ($arrlistWorkTime[$j]['work_time'] < 2) {
-                                $arrlistWorkTime[$j]['chamcong'] = 0;
-                            }
-                        } else {
-                            if ($arrlistWorkTime[$j]['work_time'] >= $arr[$i]['work_hour']) {
-                                $arrlistWorkTime[$j]['chamcong'] = 1;
-                            } else if ($arrlistWorkTime[$j]['work_time'] < $arr[$i]['work_hour'] && $arrlistWorkTime[$j]['work_time'] >= 2) {
-                                $arrlistWorkTime[$j]['chamcong'] = 1 / 2;
-                            } else if ($arrlistWorkTime[$j]['work_time'] < 2) {
-                                $arrlistWorkTime[$j]['chamcong'] = 0;
-                            }
+                    if ($arrStar_datetime[$j] > $arr[$i]['start_work_time']) {
+                        $arrlistWorkTime[$j]['chamcong'] = 1 / 2;
+                        if ($arrlistWorkTime[$j]['work_time'] < 2) {
+                            $arrlistWorkTime[$j]['chamcong'] = 0;
                         }
-
+                    } else {
+                        if ($arrlistWorkTime[$j]['work_time'] >= $arr[$i]['work_hour']) {
+                            $arrlistWorkTime[$j]['chamcong'] = 1;
+                        }
+                        if ($arrlistWorkTime[$j]['work_time'] < $arr[$i]['work_hour']
+                            && $arrlistWorkTime[$j]['work_time'] >= 2) {
+                            $arrlistWorkTime[$j]['chamcong'] = 1 / 2;
+                        }
+                        if ($arrlistWorkTime[$j]['work_time'] < 2) {
+                            $arrlistWorkTime[$j]['chamcong'] = 0;
+                        }
                     }
-                }
 
+                }
             }
         }
         return $arrlistWorkTime;
@@ -223,12 +222,10 @@ class Timekeeping
         $lenght = count($arr);
         for ($i = 0; $i < $lenght; $i++) {
             for ($j = 0; $j < count($arrlistWork_Cal); $j++) {
-                if ($arr[$i]['code'] === $arrlistWork_Cal[$j]['member_code']) {
-                    if ($arrlistWork_Cal[$j]['member_code'] === $inputNumber) {
-                        $arr[$i]['workdays'] += $arrlistWork_Cal[$j]['chamcong'];
-                        $arr[$i]['luong'] = round($arr[$i]['salary'] / $getDay * $arr[$i]['workdays'], 2);
-                    }
-                }
+                if ($arr[$i]['code'] !== $arrlistWork_Cal[$j]['member_code']) continue;
+                if ($arrlistWork_Cal[$j]['member_code'] !== $inputNumber) continue;
+                $arr[$i]['workdays'] += $arrlistWork_Cal[$j]['chamcong'];
+                $arr[$i]['luong'] = round($arr[$i]['salary'] / $getDay * $arr[$i]['workdays'], 2);
             }
         }
         return $arr;
@@ -278,14 +275,12 @@ echo '</pre>';
                 }
                 if ($manager->getGender() === 1) {
                     echo "Gioi tinh: Nữ" . '<br>';
-
                 }
                 if ($manager->getMarital_status() === 0) {
                     echo "Tình trạng hôn nhân: Chưa kết hôn" . '<br>';
                 }
                 if ($manager->getMarital_status() === 1) {
                     echo "Tình trạng hôn nhân: Đã kết hôn" . '<br>';
-
                 }
                 echo "Thời gian đăng kí đi làm: " . $manager->getStart_work_time() . '<br>';
                 echo "Số ngày công: " . $manager->getWorkdays() . '<br>';
