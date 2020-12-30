@@ -148,9 +148,11 @@ class manager
 
 class Timekeeping
 {
-    public function getHour($arrlistWorkTime, $arrStar_datetime, $arrEnd_datetime, $arr,$lenght,$lenght_arrlistWorkTime)
+    public function getHour($arrlistWorkTime, $arrStar_datetime, $arrEnd_datetime, $arr)
     {
         $array = [];
+        $lenght = count($arr);
+        $lenght_arrlistWorkTime = count($arrlistWorkTime);
         for ($j = 0; $j < $lenght; $j++) {
             for ($i = 0; $i < $lenght_arrlistWorkTime; $i++) {
                 if ($arr[$j]['code'] !== $arrlistWorkTime[$i]['member_code']) continue;
@@ -163,8 +165,10 @@ class Timekeeping
         return $array;
     }
 
-    public function calculate($arrlistWorkTime, $arr, $getHour, $arrStar_datetime,$lenght,$lenght_arrlistWorkTime)
+    public function calculate($arrlistWorkTime, $arr, $getHour, $arrStar_datetime)
     {
+        $lenght = count($arr);
+        $lenght_arrlistWorkTime = count($arrlistWorkTime);
         for ($i = 0; $i < $lenght; $i++) {
             $h = explode(':', $arr[$i]['start_work_time']);
             $h = ($h[0]) + ($h[1] / 60) + ($h[2] / 3600);
@@ -194,8 +198,10 @@ class Timekeeping
         return $arrlistWorkTime;
     }
 
-    public function sum($inputNumber, $getDay, $arrlistWork_Cal, $arr,$lenght,$lenght_arrlistWork_Cal)
+    public function sum($inputNumber, $getDay, $arrlistWork_Cal, $arr)
     {
+        $lenght = count($arr);
+        $lenght_arrlistWork_Cal = count($arrlistWork_Cal);
         for ($i = 0; $i < $lenght; $i++) {
             for ($j = 0; $j < $lenght_arrlistWork_Cal; $j++) {
                 if ($arr[$i]['code'] !== $arrlistWork_Cal[$j]['member_code']) continue;
@@ -213,18 +219,13 @@ $manager = new manager;
 $time = new Timekeeping;
 $arr = array_merge($listMemberFullTime, $listMemberPartTime);
 $arrlistWorkTime = $listWorkTime;
-$lenght_arrlistWorkTime = count($arrlistWorkTime);
-$lenght = count($arr);
 $arrStar_datetime = $manager->start_datetime($arrlistWorkTime);
 $arrEnd_datetime = $manager->end_datetime($arrlistWorkTime);
-$y = substr($arrlistWorkTime[0]['start_datetime'], 0, 4);
-$m = substr($arrlistWorkTime[0]['start_datetime'], 5, 2);
-$getDay = $manager->getDay($m, $y);
-$getHour = $time->getHour($arrlistWorkTime, $arrStar_datetime, $arrEnd_datetime, $arr,$lenght,$lenght_arrlistWorkTime);
-$arrlistWork_Cal = $time->calculate($arrlistWorkTime, $arr, $getHour, $arrStar_datetime,$lenght,$lenght_arrlistWorkTime);
-$lenght_arrlistWork_Cal = count($arrlistWork_Cal);
+$getDay = $manager->getDay(4, 2020);
+$getHour = $time->getHour($arrlistWorkTime, $arrStar_datetime, $arrEnd_datetime, $arr);
+$arrlistWork_Cal = $time->calculate($arrlistWorkTime, $arr, $getHour, $arrStar_datetime);
 echo '<pre>';
-print_r($time->calculate($arrlistWorkTime, $arr, $getHour, $arrStar_datetime,$lenght,$lenght_arrlistWorkTime));
+print_r($time->calculate($arrlistWorkTime, $arr, $getHour, $arrStar_datetime));
 //print_r($time->sum($inputNumber, $getDay, $arrlistWork_Cal, $arr));
 echo '</pre>';
 ?>
@@ -235,8 +236,8 @@ echo '</pre>';
     <?php
     if (isset($_POST['submit'])) {
         $inputNumber = $_POST['inputNumber'];
-        $arrs = $time->sum($inputNumber, $getDay, $arrlistWork_Cal, $arr,$lenght,$lenght_arrlistWork_Cal);
-        foreach ($arrs as $arr)
+        $arrs = $time->sum($inputNumber, $getDay, $arrlistWork_Cal, $arr);
+        foreach ($arrs as $arr){
             if ($arr['code'] === $inputNumber) {
                 $manager->setName($arr['full_name']);
                 $manager->setCode($arr['code']);
@@ -265,6 +266,8 @@ echo '</pre>';
                 echo 'Số ngày công: ' . $manager->getWorkdays() . '<br>';
                 echo 'Lương: ' . $manager->getLuong() . '<br>';
             }
+        }
+
     }
     ?>
 </form>
