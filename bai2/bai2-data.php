@@ -54,20 +54,20 @@ $listBill = array(
     array(
         'bill_id'=>01,
         'number_table'=>1,
-        'check_in'=>'',
-        'check_out'=>'',
+        'check_in'=>'08:00:00',
+        'check_out'=>'12:00:00',
     ),
     array(
         'bill_id'=>02,
         'number_table'=>2,
-         'check_in'=>'',
-        'check_out'=>'',
+         'check_in'=>'14:00:00',
+        'check_out'=>'18:00:00',
     ),
     array(
         'bill_id'=>03,
         'number_table'=>3,
-        'check_in'=>'',
-        'check_out'=>'',
+        'check_in'=>'19:00:00',
+        'check_out'=>'23:00:00',
     ),
 
 );
@@ -77,28 +77,45 @@ $listGetBill=array(
         'staff_id'=>01,
         'accompany'=>0,
         'bill_id'=>02,
-        'time'=>1
+        'start_time'=>'14:00:00',
+        'end_time'=>'15:00:00',
+        'tien'=>''
     ),
     array(
         'getBill_id'=>02,
         'staff_id'=>02,
         'accompany'=>1,
         'bill_id'=>02,
-        'time'=>1
+        'start_time'=>'14:00:00',
+        'end_time'=>'18:00:00',
+        'tien'=>''
+    ),
+    array(
+        'getBill_id'=>05,
+        'staff_id'=>04,
+        'accompany'=>0,
+        'bill_id'=>02,
+        'start_time'=>'17:00:00',
+        'end_time'=>'18:00:00',
+        'tien'=>''
     ),
     array(
         'getBill_id'=>03,
         'staff_id'=>03,
         'accompany'=>1,
         'bill_id'=>03,
-        'time'=>2
+        'start_time'=>'19:00:00',
+        'end_time'=>'23:00:00',
+        'tien'=>''
     ),
     array(
         'getBill_id'=>04,
         'staff_id'=>04,
         'accompany'=>0,
         'bill_id'=>03,
-        'time'=>2
+        'start_time'=>'22:00:00',
+        'end_time'=>'23:00:00',
+        'tien'=>''
     ),
 
 );
@@ -108,36 +125,28 @@ $listStaff = array(
         'name'=>'Le Van A',
         'age'=>25,
         'gender'=>'Nam',
-        'accompany'=>0,
-        'bill_id'=>02,
-        'time'=>1
+
     ),
     array(
         'id'=>02,
         'name'=>'Nguyen Thi A',
         'age'=>27,
         'gender'=>'Nữ',
-        'accompany'=>1,
-        'bill_id'=>02,
-        'time'=>1
+
     ),
     array(
         'id'=>03,
         'name'=>'Le Van B',
         'age'=>30,
         'gender'=>'Nam',
-        'accompany'=>1,
-        'bill_id'=>03,
-        'time'=>2
+
     ),
     array(
         'id'=>04,
         'name'=>'Nguyen Thi B',
         'age'=>22,
         'gender'=>'Nữ',
-        'accompany'=>0,
-        'bill_id'=>03,
-        'time'=>2
+
     ),
 );
 
@@ -161,5 +170,15 @@ $listOrder = array(
         'quantity'=>1
     )  ,
 );
-
+$configs = [
+    ['time' => 1, 'quantity' => 1, 'price' => 100000],
+    ['time' => 1, 'quantity' => 2, 'price' => 80000],
+    ['time' => 1, 'quantity' => 3, 'price' => 40000],
+    ['time' => 2,'quantity' => 1,'price' => 80000],
+    ['time' => 2, 'quantity' => 2, 'price' => 60000],
+    ['time' => 2, 'quantity' => 3, 'price' => 60000],
+    ['time' => 3,'quantity' => 1,'price' => 50000],
+    ['time' => 3, 'quantity' => 2, 'price' => 40000],
+    ['time' => 3, 'quantity' => 3, 'price' => 40000]
+];
 ?>
